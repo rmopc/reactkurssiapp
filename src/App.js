@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Laskuri from './laskuri'
+import Viesti from './viesti'
+import React, {useState} from 'react'
+import Posts from './posts'
 
-function App() {
+const App = () => {
+// function App() {
+
+  const [showLaskuri, setShowLaskuri] = useState(false)
+
+  let x = 420
+
+  const numero = 1000
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App"> 
+      <h4>MORJENTES</h4>
+      <h4>{x + 69 + " moro"}</h4>
+
+      {showLaskuri && <Laskuri />}
+      {showLaskuri && <button onClick={() => setShowLaskuri(false)}>Piilota</button>}
+      {!showLaskuri && <button onClick={() => setShowLaskuri(true)}>Näytä</button>}
+
+      <Viesti sanoma ="Moi komponentista " numero={numero}/>
+
+      <Posts />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
