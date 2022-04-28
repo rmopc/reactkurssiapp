@@ -1,10 +1,43 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.vierekkain {
+  display: inline-block;
+  border-style: solid;
+  width: 50%;
+}
+
+.post {
+  display: inline-block;
+  border-style: dotted;
+  width: 90%;
+  margin-top: 10px;
+}
+
+.customerDetails {
+  background-color: chocolate;
+  border-style: solid;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.nappi {
+  border-radius: 10px;
+  margin-left: 10px;
+  font-size: 26px;
+  background-color: chocolate;
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -12,13 +12,15 @@ const Posts = () => {
 
   return (
     <div>
-        <h3>Typicoden postaukset</h3>
+        {/* <h3>Typicoden postaukset</h3> */}
 
         {posts && posts.map(p => (
             <div key={p.id}>
+              <div className ="post">
                 <h2>{p.title}</h2>
                 <p>Author ID: {p.userId}, Post ID: {p.id}</p>                
                 <p>{p.body}</p>
+                </div>
             </div>
         ))}
     </div>
