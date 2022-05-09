@@ -4,14 +4,21 @@ import Viesti from './viesti'
 import React, {useState} from 'react'
 import Posts from './posts'
 import CustomerList from './CustomerList'
-
+import Message from './message'
 
 const App = () => {
 // function App() {
 
+  
+
   const [showLaskuri, setShowLaskuri] = useState(false)
 
   const [showPosts, setShowPosts] = useState(false)
+
+  //messagen statet
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+  const [isPositive, setIsPositive] = useState(false)
 
   let x = 420
 
@@ -21,7 +28,9 @@ const App = () => {
     <div className="App"> 
       <h1>React opiskelua ja testailua</h1>
 
-      <CustomerList />
+      {showMessage && <Message message={message} isPositive={isPositive} /> }
+
+      <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />
 
       <h2>{x + 69 + " moro"}</h2>
       <div className ="vierekkain">

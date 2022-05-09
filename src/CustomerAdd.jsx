@@ -2,7 +2,7 @@ import './App.css'
 import React, {useState} from 'react'
 import CustomerService from './services/Customer'
 
-const CustomerAdd = ({setLisäysTila, loadNow}) => {
+const CustomerAdd = ({setLisäysTila, reloadNow, reload, setIsPositive, setMessage, setShowMessage}) => {
 
 const [newCustomerId, setNewCustomerId] = useState('')
 const [newCompanyName, setNewCompanyName] = useState('')
@@ -47,29 +47,24 @@ const clearFields = () => {
 
     console.log(newCustomer)
     
-    CustomerService.create(newCustomer)
-    .then(response => {
+    CustomerService.create(newCustomer).then(response => {
         if (response.status === 200) {
-         alert ("Added new Customer: " + newCustomer.companyName)
-        //  setIsPositive(true)
-        //  setShowMessage(true)
+            setMessage("Added new Customer: " + newCustomer.companyName)
+            setIsPositive(true)
+            setShowMessage(true)
         
-        //  setTimeout(() => {
-        //   setShowMessage(false)
-        //  }, 5000)
-          loadNow()  
-          setLisäysTila(false)
+            setTimeout(() => {setShowMessage(false)}, 5000)
+            reloadNow(!reload)  
+            setLisäysTila(false)
       }
   
         })
         .catch(error => {
-          alert(error)
-        //   setIsPositive(false)
-        //   setShowMessage(true)
-  
-        //   setTimeout(() => {
-        //     setShowMessage(false)
-        //    }, 6000)
+            setMessage(error.response.data)            
+            setIsPositive(false)
+            setShowMessage(true)
+    
+            setTimeout(() => {setShowMessage(false)}, 10000)
         })
       }
 

@@ -12,5 +12,13 @@ const create = newCustomer => {
     return axios.post(baseUrl, newCustomer)
 }
 
+const remove = id => {
+    return axios.delete(`${baseUrl}/${id}`) //template-stringiksi kutsutaan tuota
+}
 
-export default { getAll, create }
+const update = (object) => {
+    return axios.put(`${baseUrl}/${object.customerId}`, object)
+}
+
+
+export default { getAll, create, remove, update }
