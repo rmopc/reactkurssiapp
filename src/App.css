@@ -1,6 +1,5 @@
 .App {
-  text-align: center;
-  
+  text-align: center;  
 }
 
 .App-logo {
@@ -31,6 +30,15 @@
   padding-left: 10%;
   padding-right: 10%;
 }
+.userTable{
+  margin: auto;
+  margin-top: 20px;
+  width: 40%;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
 
 .nappi {
   border-radius: 10px;
@@ -38,6 +46,10 @@
   font-size: 26px;
   background-color: chocolate;
   color: white;
+}
+
+.nappiGroup{
+  padding: 20px;
 }
 
 .neg {
@@ -68,6 +80,17 @@
   margin-top: 10%;
   width: 70%;
   margin-left: 15%;
+}
+
+.label {  
+  margin-left: 20%;
+  text-align: right;
+  float: left;
+  width: 25%;      
+}
+
+.input {
+  margin-right: 20%;  
 }
 
 @media (prefers-reduced-motion: no-preference) {

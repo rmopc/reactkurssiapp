@@ -2,41 +2,50 @@ import './App.css'
 import React, {useState} from 'react'
 import CustomerService from './services/Customer'
 import CustomerEdit from './CustomerEdit'
+import Message from './message'
 
 
-const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNow, reload}) => {
+
+const Customer = ({customer, reloadNow, reload}) => {
 
 
   const [showDetails, setShowDetails] = useState(false)
   const [muokkausTila, setMuokkausTila] = useState(false)
   const [muokattavaCustomer, setMuokattavaCustomer] = useState({})
 
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+  const [isPositive, setIsPositive] = useState(false)  
+ 
+
   //DELETE
   const deleteCustomer = (customer) => {
-      let vastaus = window.confirm(`Remove Customer ${customer.companyName}?`)
+      let vastaus = window.confirm(`Poistetaanko varmasti asiakas ${customer.companyName}?`)
 
       if (vastaus === true) {
           CustomerService.remove(customer.customerId).then(response => {
-            if (response.status === 200) {
-                // setMessage(`Successfully removed customer ${customer.companyName}`)
+            if (response.status === 200) {                
                 setMessage(response.data)
                 setIsPositive(true)
-                setShowMessage(true)
-                window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
-                // loadNow()
+                setShowMessage(true)               
+                
 
                 // Ilmoituksen piilotus
-                setTimeout(() => {setShowMessage(false)},5000)
+                setTimeout(() => {
+                setShowMessage(false)
                 reloadNow(!reload) 
+                },5000)
+                
                 }
                 else {
                     setMessage(response.data)
                     setIsPositive(false)
-                    setShowMessage(true)
-                    window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
+                    setShowMessage(true)                    
                         
                     // Ilmoituksen piilotus
-                    setTimeout(() => {setShowMessage(false)},5000)
+                    setTimeout(() => {
+                    setShowMessage(false)
+                    },5000)
                 }
             
             })
@@ -44,9 +53,11 @@ const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNo
                 setMessage(error.response.data)
                 setIsPositive(false)
                 setShowMessage(true)
-                window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
+                //window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
         
-                setTimeout(() => {setShowMessage(false)}, 10000)
+                setTimeout(() => {
+                setShowMessage(false)
+                }, 10000)
               })
     
         } // Jos poisto halutaankin perua
@@ -54,7 +65,7 @@ const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNo
         setMessage('Poistaminen peruttu onnistuneesti.')
             setIsPositive(true)
             setShowMessage(true)
-            window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+            window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
     
             // Ilmoituksen piilotus
             setTimeout(() => {setShowMessage(false)},5000)
@@ -64,18 +75,19 @@ const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNo
     const editing = (customer) => {
         setMuokattavaCustomer(customer)
         setMuokkausTila(true)
+        
     }
 
   return (
     <div className="customerDiv">                   
-        <h3 onClick={() => setShowDetails(!showDetails)}>{customer.companyName} from {customer.country}</h3>
+        <h3><nobr style={{ cursor: 'pointer' }} onClick={() => setShowDetails(!showDetails)}>{customer.companyName} from {customer.country}</nobr></h3>
         {
             showDetails && 
             <div className="customerDetails">
-                <h5>{customer.companyName}</h5>
-
-                <button onClick={() => editing(customer)}>Edit</button>
+                <h1>[{customer.customerId}] - {customer.companyName}</h1>                
+                <button onClick={() => editing(customer)}>Edit</button>       
                 <button onClick={() => deleteCustomer(customer)}>Delete</button>
+                {showMessage && <Message message={message} isPositive={isPositive} /> }    
 
                 {!muokkausTila ? <table>
                     <thead>
@@ -85,8 +97,7 @@ const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNo
                             <th>Postal Code</th>                           
                             <th>City</th>                         
                             <th>Phone</th>                         
-                            <th>Fax</th>
-                                                      
+                            <th>Fax</th>                                                      
                         </tr>
                     </thead>
                     <tbody>
@@ -99,8 +110,8 @@ const Customer = ({customer, setIsPositive, setMessage, setShowMessage, reloadNo
                             <td>{customer.fax}</td>                               
                         </tr>
                     </tbody>
-                </table> : <CustomerEdit setMuokkausTila={setMuokkausTila} setIsPositive={setIsPositive} setMessage={setMessage}
-                 setShowMessage={setShowMessage} muokattavaCustomer={muokattavaCustomer} reloadNow={reloadNow} reload={reload}/>}
+                </table> : <CustomerEdit setMuokkausTila={setMuokkausTila} muokattavaCustomer={muokattavaCustomer}
+                />}
             </div>
         }
     </div>

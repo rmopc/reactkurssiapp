@@ -49,7 +49,7 @@ const clearFields = () => {
     
     CustomerService.create(newCustomer).then(response => {
         if (response.status === 200) {
-            setMessage("Added new Customer: " + newCustomer.companyName)
+            setMessage("Lisättiin asiakas: " + newCustomer.companyName)
             setIsPositive(true)
             setShowMessage(true)
         
@@ -116,7 +116,7 @@ const clearFields = () => {
             
                 <input type='submit' value='Save'/>
                 <input type='button' value='Clear fields' onClick={clearFields}/>
-                <input type='button' value='back' onClick={() => setLisäysTila(false)} />
+                <input type='button' value='Back' onClick={() => setLisäysTila(false)} />
             </form>
         </>
 

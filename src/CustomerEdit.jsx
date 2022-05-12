@@ -1,8 +1,9 @@
 import './App.css'
 import React, {useState} from 'react'
 import CustomerService from './services/Customer'
+import Message from './message'
 
-const CustomerEdit = ({setMuokkausTila, setIsPositive, setMessage, setShowMessage, muokattavaCustomer, reloadNow, reload}) => {
+const CustomerEdit = ({setMuokkausTila, muokattavaCustomer, reloadNow, reload}) => {
 
 const [newCustomerId, setNewCustomerId] = useState(muokattavaCustomer.customerId)
 const [newCompanyName, setNewCompanyName] = useState(muokattavaCustomer.companyName)
@@ -16,6 +17,10 @@ const [newCity, setNewCity] = useState(muokattavaCustomer.city)
 const [newPostalCode, setNewPostalCode] = useState(muokattavaCustomer.postalCode)
 const [newPhone, setNewPhone] = useState(muokattavaCustomer.phone)
 const [newFax, setNewFax] = useState(muokattavaCustomer.fax)
+
+const [showMessage, setShowMessage] = useState(false)
+const [message, setMessage] = useState('')
+const [isPositive, setIsPositive] = useState(false)
 
 const resetFields = () => {
     setNewCustomerId(muokattavaCustomer.customerId) //tsekkaa viel tää pitääks poistaa tai piilottaa
@@ -54,11 +59,14 @@ const resetFields = () => {
             setMessage("Muokattiin asiakasta: " + response.data)
             setIsPositive(true)
             setShowMessage(true)
-            window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+            // window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
         
-            setTimeout(() => {setShowMessage(false)}, 5000)   
-            reloadNow(!reload)          
-            setMuokkausTila(false)
+            setTimeout(() => {
+                setShowMessage(false)
+                reloadNow(!reload)          
+                setMuokkausTila(false)
+            }, 5000)   
+            
       }
   
         })
@@ -76,79 +84,63 @@ const resetFields = () => {
         <>
             <h2>Edit Customer</h2>
             <form onSubmit={handleSubmit}>
+
                 <div>
-                    <label>Customer ID</label>
+                    <label className='label'>Customer ID: </label>
+                    <input className ='input' type="text" value={newCustomerId} disabled /> {/*disabled siksi, ettei tätä pidä pystyä muokkaamaan */}
                 </div>
                 <div>
-                    <input type="text" value={newCustomerId} disabled /> {/*disabled siksi, ettei tätä pidä pystyä muokkaamaan */}
-                </div>
-                <div>
-                    <label>Company Name</label>
-                </div>
-                <div>
-                    <input type="text" value={newCompanyName} placeholder={muokattavaCustomer.companyName}
+                    <label className='label'>Company Name: </label>
+                    <input className ='input'  type="text" value={newCompanyName} placeholder={muokattavaCustomer.companyName}
                     onChange={({ target }) => setNewCompanyName(target.value)} required />
                 </div>
                 <div>
-                    <label>Contact Name</label>
-                </div>
-                <div>
-                    <input type="text" value={newContactName} placeholder={muokattavaCustomer.contactName}
+                    <label className='label'>Contact Name: </label>
+                    <input className ='input' type="text" value={newContactName} placeholder={muokattavaCustomer.contactName}
                     onChange={({ target }) => setNewContactName(target.value)} required/>
                 </div>
                 <div>
-                    <label>Contact Title</label>
-                </div>
-                <div>
-                    <input type="text" value={newContactTitle} placeholder={muokattavaCustomer.contactTitle}
+                    <label className='label'>Contact Title: </label>
+                    <input className ='input' type="text" value={newContactTitle} placeholder={muokattavaCustomer.contactTitle}
                     onChange={({ target }) => setNewContactTitle(target.value)} required />
                 </div>
                 <div>
-                    <label>Country</label>
-                </div>
-                <div>
-                    <input type="text" value={newCountry} placeholder={muokattavaCustomer.country}
+                    <label className='label'>Country: </label>
+                    <input className ='input' type="text" value={newCountry} placeholder={muokattavaCustomer.country}
                     onChange={({ target }) => setNewCountry(target.value)} required/>
                 </div>
-                <div>
-                    <label>Address</label>
-                </div>
-                <div>
-                    <input type="text" value={newAddress} placeholder={muokattavaCustomer.address}
+                    <div>
+                    <label className='label'>Address: </label>
+                    <input className ='input' type="text" value={newAddress} placeholder={muokattavaCustomer.address}
                     onChange={({ target }) => setNewAddress(target.value)} required/>
                 </div>
                 <div>
-                    <label>City</label>
-                </div>
-                <div>
-                    <input type="text" value={newCity} placeholder={muokattavaCustomer.city}
+                    <label className='label'>City: </label>
+                    <input className ='input' type="text" value={newCity} placeholder={muokattavaCustomer.city}
                     onChange={({ target }) => setNewCity(target.value)} required/>
                 </div>
                 <div>
-                    <label>Postal Code</label>
-                </div>
-                <div>
-                    <input type="text" value={newPostalCode} placeholder={muokattavaCustomer.postalCode}
+                    <label className='label'>Postal Code: </label>
+                    <input className ='input' type="text" value={newPostalCode} placeholder={muokattavaCustomer.postalCode}
                     onChange={({ target }) => setNewPostalCode(target.value)} required/>
                 </div>
                 <div>
-                    <label>Phone</label>
-                </div>
-                <div>
-                    <input type="text" value={newPhone} placeholder={muokattavaCustomer.phone}
+                    <label className='label'>Phone: </label>
+                    <input className ='input' type="text" value={newPhone} placeholder={muokattavaCustomer.phone}
                     onChange={({ target }) => setNewPhone(target.value)} required/>
                 </div>
                 <div>
-                    <label>Fax</label>
-                </div>
-                <div>
-                    <input type="text" value={newFax} placeholder={muokattavaCustomer.fax}
+                    <label className='label'>Fax: </label>
+                    <input className ='input' type="text" value={newFax} placeholder={muokattavaCustomer.fax}
                     onChange={({ target }) => setNewFax(target.value)} />
                 </div>
-            
-                <input type='submit' value='Save'/>
-                <input type='button' value='Reset fields' onClick={resetFields}/>
-                <input type='button' value='back' onClick={() => setMuokkausTila(false)} />
+                {showMessage && <Message message={message} isPositive={isPositive} /> }
+                <div className='nappiGroup'>
+                    <input type='submit' value='Save'/>
+                    <input type='button' value='Reset fields' onClick={resetFields}/>
+                    <input type='button' value='Back' onClick={() => setMuokkausTila(false)} />
+                </div>
+
             </form>
         </>
 
