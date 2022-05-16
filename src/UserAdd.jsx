@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import UserService from './services/User'
 import md5 from 'md5'
 
-const UserAdd = ({setLisäystila, setIsPositive, setMessage, setShowMessage}) => {
+const UserAdd = ({setLisäysTila, setIsPositive, setMessage, setShowMessage}) => {
 
 // Komponentin tilan määritys
 // Id arvo määritellään tietokannassa automaattisesti,emme anna sitä itse
@@ -31,7 +31,9 @@ const handleSubmit = (event) => {
     console.log(newUser)
 
     UserService.create(newUser)
+    
     .then(response => {
+      console.log(response.status)
       if (response.status === 200) {
        setMessage(`Added new User: ${newUser.firstName} ${newUser.lastName}`) //template-string jälleen...
        setIsPositive(true)
@@ -41,7 +43,7 @@ const handleSubmit = (event) => {
         setShowMessage(false)
        }, 5000)
 
-       setLisäystila(false)
+       setLisäysTila(false)
     }
 
       })
@@ -88,7 +90,7 @@ const handleSubmit = (event) => {
             </div>
             
          <input type='submit' value='Save' />
-         <input type='button' value='Back' onClick={() => setLisäystila(false)} />
+         <input type='button' value='Back' onClick={() => setLisäysTila(false)} />
        </form>
 
     </div>

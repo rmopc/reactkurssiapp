@@ -12,6 +12,7 @@ import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
 const App = () => {
 // function App() { 
@@ -22,7 +23,8 @@ const App = () => {
   //messagen statet
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
-  const [isPositive, setIsPositive] = useState(false)
+  const [isPositive, setIsPositive] = useState(true)
+
 
   // let x = 420
 
@@ -33,13 +35,25 @@ const App = () => {
 
       <Router>        
 
-        <Navbar bg="dark" variant="dark">
+        {/* <Navbar bg="dark" variant="dark">
           <Nav className="mr-auto">
               <Link to={'/Customers'} className='nav-link'>Customers</Link>
               <Link to={'/Users'} className='nav-link'>Users</Link>
               <Link to={'/laskuri'} className='nav-link'>Laskuri</Link>
               <Link to={'/posts'} className='nav-link'>Typicode posts</Link>
           </Nav>
+        </Navbar> */}
+
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand href="#home">React</Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link href="/Customers">Customers</Nav.Link>
+                <Nav.Link href="/Users">Users</Nav.Link>
+                <Nav.Link href="/posts">Posts</Nav.Link>
+                <Nav.Link href="/laskuri">Laskuri</Nav.Link>
+              </Nav>
+          </Container>
         </Navbar>
 
       <h1>React opiskelua ja testailua</h1>
