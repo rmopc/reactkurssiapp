@@ -11,7 +11,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 
 const App = () => {
@@ -33,17 +33,7 @@ const App = () => {
   return (
     <div className="App"> 
 
-      <Router>        
-
-        {/* <Navbar bg="dark" variant="dark">
-          <Nav className="mr-auto">
-              <Link to={'/Customers'} className='nav-link'>Customers</Link>
-              <Link to={'/Users'} className='nav-link'>Users</Link>
-              <Link to={'/laskuri'} className='nav-link'>Laskuri</Link>
-              <Link to={'/posts'} className='nav-link'>Typicode posts</Link>
-          </Nav>
-        </Navbar> */}
-
+      <Router>     
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand href="#home">React</Navbar.Brand>

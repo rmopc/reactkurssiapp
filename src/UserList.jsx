@@ -1,15 +1,19 @@
 import './App.css'
 import React, {useEffect, useState} from 'react'
 import UserService from './services/User'
+import User from './User'
 import UserAdd from './UserAdd'
+import UserEdit from './UserEdit'
+
 
 const UserList = ({setIsPositive, setMessage, setShowMessage}) => {
 
 
   const [users, setUsers] = useState([]) 
+  const [showUsers, setShowUsers] = useState(false)
   const [lisäysTila, setLisäysTila] = useState(false)
   const [reload, reloadNow] = useState(false)
-  const [muokkausTila, setMuokkausTila] = useState(false)
+  const [muokkausTila, setMuokkausTila] = useState(false)  
   const [muokattavaUser, setMuokattavaUser] = useState(false)
   const [search, setSearch] = useState("")
 
@@ -22,10 +26,11 @@ const UserList = ({setIsPositive, setMessage, setShowMessage}) => {
     }, [reload, lisäysTila, muokkausTila]
     )
 
-    const editUsers = (user) => {
-        setMuokattavaUser(user)
-         setMuokkausTila(true)
-    }
+    const editUser = (user) => {
+      setMuokattavaUser(user)
+      setMuokkausTila(true)
+      
+  }
 
     const handleSearchInputChange = (event) => {      
       setSearch(event.target.value.toLowerCase())
@@ -34,10 +39,11 @@ const UserList = ({setIsPositive, setMessage, setShowMessage}) => {
   return (
     <div>
         
-        <h1><nobr>Users</nobr>
+        <h1><nobr style={{ cursor: 'pointer' }}
+                onClick={() => setShowUsers(!showUsers)}>Users</nobr>
 
-                {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} 
-                setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />}
+                {/* {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} 
+                setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />} */}
 
                 {!lisäysTila && <button className="nappi" onClick={() => setLisäysTila(true)}>Add new</button>}</h1>
 
@@ -46,40 +52,27 @@ const UserList = ({setIsPositive, setMessage, setShowMessage}) => {
                 <input placeholder='Search by last name' value={search} onChange={handleSearchInputChange} />
                 }               
 
-                {!lisäysTila && !muokkausTila &&
-                <table className="userTable">
-                        <thead>
-                            <tr>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>E-mail</th>
-                                <th>Access-level</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload ={reload}
+                setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />} 
 
+                {muokkausTila && <UserEdit setMuokkausTila={setMuokkausTila} setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} 
+                muokattavaUser={muokattavaUser} 
+                />} 
 
-                {users && users.map(u => 
-                {
-                const lowerCaseName = u.lastName.toLowerCase()
-                if (lowerCaseName.indexOf(search) > -1) {
-                    return(
-                        <tr key={u.userId}>
-                            <td>{u.firstName}</td>
-                            <td>{u.lastName}</td>
-                            <td>{u.email}</td>
-                            <td>{u.accesslevelId}</td>
-                        </tr>
-                    
-                    )
-                    }
-                }
-                )
-                }
-                
-                    </tbody>
-                </table>
-                }
+        {
+        !lisäysTila && !muokkausTila && users && showUsers && users.map(u => 
+          {
+          const lowerCaseName = u.lastName.toLowerCase()
+          if (lowerCaseName.indexOf(search) > -1) {
+            return(
+            <User key={u.userId} user={u} setIsPositive={setIsPositive} setMessage={setMessage} 
+            setShowMessage={setShowMessage} reloadNow={reloadNow} reload ={reload} editUser={editUser}/>
+            )
+            }
+          }
+        )
+        }
+        
     </div>
   )
 }

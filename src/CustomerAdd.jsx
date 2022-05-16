@@ -53,7 +53,9 @@ const clearFields = () => {
             setIsPositive(true)
             setShowMessage(true)
         
-            setTimeout(() => {setShowMessage(false)}, 5000)
+            setTimeout(() => {
+             setShowMessage(false)
+            }, 5000)
             reloadNow(!reload)  
             setLisäysTila(false)
       }
@@ -64,7 +66,9 @@ const clearFields = () => {
             setIsPositive(false)
             setShowMessage(true)
     
-            setTimeout(() => {setShowMessage(false)}, 10000)
+            setTimeout(() => {
+                setShowMessage(false)
+            }, 10000)
         })
       }
 

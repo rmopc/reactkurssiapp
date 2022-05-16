@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import UserService from './services/User'
 import md5 from 'md5'
 
-const UserAdd = ({setLisäysTila, setIsPositive, setMessage, setShowMessage}) => {
+const UserAdd = ({setLisäysTila, reloadNow, reload, setIsPositive, setMessage, setShowMessage}) => {
 
 // Komponentin tilan määritys
 // Id arvo määritellään tietokannassa automaattisesti,emme anna sitä itse
@@ -42,7 +42,7 @@ const handleSubmit = (event) => {
        setTimeout(() => {
         setShowMessage(false)
        }, 5000)
-
+       reloadNow(!reload)  
        setLisäysTila(false)
     }
 

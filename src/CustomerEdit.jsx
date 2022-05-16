@@ -63,7 +63,7 @@ const resetFields = () => {
         
             setTimeout(() => {
                 setShowMessage(false)
-                reloadNow(!reload)          
+                // reloadNow(!reload)          
                 setMuokkausTila(false)
             }, 5000)   
             
