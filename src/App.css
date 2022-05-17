@@ -40,6 +40,16 @@
   padding-right: 10%;
 }
 
+.userlist{
+  margin: auto;
+  margin-top: 20px;
+  width: 40%;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .nappi {
   border-radius: 10px;
   margin-left: 10px;

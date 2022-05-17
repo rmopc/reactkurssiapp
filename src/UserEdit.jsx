@@ -2,10 +2,13 @@ import './App.css'
 import React, {useState} from 'react'
 import UserService from './services/User'
 import Message from './message'
+import md5 from 'md5'
 
 const UserEdit = ({setMuokkausTila, muokattavaUser, reloadNow, reload}) => {
 
 const [newUserId, setNewUserId] = useState(muokattavaUser.userId)
+const [newUserName, setNewUserName] = useState(muokattavaUser.userName)
+const [newPassword, setNewPassword] = useState(muokattavaUser.password)
 const [newFirstName, setNewFirstName] = useState(muokattavaUser.firstName)
 const [newLastName, setNewLastName] = useState(muokattavaUser.lastName)
 const [newEmail, setNewEmail] = useState(muokattavaUser.email)
@@ -18,6 +21,8 @@ const [isPositive, setIsPositive] = useState(false)
 
 const resetFields = () => {
     setNewUserId(muokattavaUser.userId) //tsekkaa viel tää pitääks poistaa tai piilottaa
+    setNewUserName(muokattavaUser.userName)
+    setNewPassword(muokattavaUser.password)
     setNewFirstName(muokattavaUser.firstName)
     setNewLastName(muokattavaUser.lastName)
     setNewEmail(muokattavaUser.email)
@@ -30,6 +35,8 @@ const resetFields = () => {
 
         var editUser = {
           userId: newUserId,
+          userName: newUserName,
+          password: md5(newPassword),
           firstName: newFirstName,
           lastName: newLastName,
           email: newEmail,
@@ -41,13 +48,13 @@ const resetFields = () => {
     UserService.update(editUser)
     .then(response => {
         if (response.status === 200) {
-            setMessage("Muokattiin käyttäjää: " + response.data)
+            setMessage(response.data)
             setIsPositive(true)
             setShowMessage(true)            
         
             setTimeout(() => {
                 setShowMessage(false)
-                reloadNow(!reload)          
+                // reloadNow(!reload)          
                 setMuokkausTila(false)
             }, 5000)   
             
@@ -72,6 +79,15 @@ const resetFields = () => {
                 <div>
                     <label className='label'>User ID: </label>
                     <input className ='input' type="text" value={newUserId} disabled /> {/*disabled siksi, ettei tätä pidä pystyä muokkaamaan */}
+                </div>
+                <div>
+                    <label className='label'>Username: </label>
+                    <input className ='input' type="text" value={newUserName} disabled /> {/*disabled toistaiseksi, ikäänkuin sama kuin ID kanssa */}
+                </div>
+                <div>
+                    <label className='label'>Password: </label>
+                    <input className ='input' type="text" value={newPassword}  
+                    onChange={({ target }) => setNewPassword(target.value)} required /> 
                 </div>
                 <div>
                     <label className='label'>First name: </label>

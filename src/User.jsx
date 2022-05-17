@@ -79,18 +79,20 @@ const User = ({user, reloadNow, reload}) => {
 
   return (
     <div className="customerDiv">                   
-        <h3><nobr style={{ cursor: 'pointer' }} onClick={() => setShowDetails(!showDetails)}>{user.userId}</nobr></h3>
+        <h3><nobr style={{ cursor: 'pointer' }} onClick={() => setShowDetails(!showDetails)}>{user.userName}</nobr></h3>
         {
             showDetails && 
             <div className="customerDetails">
-                <h1> {user.firstName}</h1>                
-                <button onClick={() => editing(user)}>Edit</button>       
-                <button onClick={() => deleteUser(user)}>Delete</button>
+                {/* <h1> {user.firstName}</h1>                 */}
+                {/* <button onClick={() => editing(user)}>Edit</button>       
+                <button onClick={() => deleteUser(user)}>Delete</button> */}
                 {showMessage && <Message message={message} isPositive={isPositive} /> }    
 
                 {!muokkausTila ? <table>
                     <thead>
-                        <tr>                            
+                        <tr>      
+                            <th>Username</th>  
+                            <th>Password</th>                            
                             <th>First name</th>                         
                             <th>Last name</th>                         
                             <th>E-mail</th>                           
@@ -98,13 +100,15 @@ const User = ({user, reloadNow, reload}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>                            
+                        <tr>      
+                            <td>{user.userName}</td> 
+                            <td>{user.password}</td>                       
                             <td>{user.firstName}</td>                           
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>                             
                             <td>{user.accesslevelId}</td>
-                            {/* <button onClick={() => editing(user)}>Edit</button>       
-                            <button onClick={() => deleteUser(user)}>Delete</button> */}
+                            <button onClick={() => editing(user)}>Edit</button>       
+                            <button onClick={() => deleteUser(user)}>Delete</button>
                         </tr>
                     </tbody>
                 </table> : <UserEdit setMuokkausTila={setMuokkausTila} muokattavaUser={muokattavaUser}
