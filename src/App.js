@@ -1,11 +1,12 @@
 import './App.css'
 import Laskuri from './laskuri'
 // import Viesti from './viesti'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Posts from './posts'
 import CustomerList from './CustomerList'
 import UserList from './UserList'
 import Message from './message'
+import Login from './Login'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -17,21 +18,37 @@ import { Container } from 'react-bootstrap'
 const App = () => {
 // function App() { 
 
-  // const [showLaskuri, setShowLaskuri] = useState(false)
-  // const [showPosts, setShowPosts] = useState(false)
+
 
   //messagen statet
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [isPositive, setIsPositive] = useState(true)
+  const [loggedInUser, setLoggedInUser] = useState('')
 
 
-  // let x = 420
+  useEffect(() => {
+    let storedUser = localStorage.getItem("username")
+    if (storedUser !== null) {
+      setLoggedInUser(storedUser)
+    }
+  },[])
 
-  // const numero = 1000
+
+  const logout = () => {
+    localStorage.clear()
+    setLoggedInUser('')
+  }
+
 
   return (
     <div className="App"> 
+
+    {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} 
+    setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser}/>}
+
+
+    {loggedInUser &&
 
       <Router>     
         <Navbar bg="dark" variant="dark">
@@ -42,6 +59,7 @@ const App = () => {
                 <Nav.Link href="/Users">Users</Nav.Link>
                 <Nav.Link href="/posts">Posts</Nav.Link>
                 <Nav.Link href="/laskuri">Laskuri</Nav.Link>
+                <button onClick={() => logout()}>Log out</button>
               </Nav>
           </Container>
         </Navbar>
@@ -61,6 +79,7 @@ const App = () => {
         </Switch>
            
       </Router>
+      }
 
       {/* {showMessage && <Message message={message} isPositive={isPositive} /> }
 
