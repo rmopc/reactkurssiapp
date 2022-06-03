@@ -16,8 +16,8 @@ const remove = id => {
     return axios.delete(`${baseUrl}/${id}`) //template-stringiksi kutsutaan tuota
 }
 
-const update = (object) => {
-    return axios.put(`${baseUrl}/${object.userId}`, object)
+const update = (id, object) => {
+    return axios.put(`${baseUrl}/${id}`, object)
 }
 
 

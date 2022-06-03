@@ -23,7 +23,7 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
     .then(data => {
       setUsers(data)
       })
-    }, [reload, lisäysTila, muokkausTila]
+    }, [reload]
     )
 
     const editUser = (user) => {
@@ -37,26 +37,23 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
     }
 
   return (
-    <div>
+    <div className=''>
         
         {/* <h1><nobr style={{ cursor: 'pointer' }}onClick={() => setShowUsers(!showUsers)}>Users</nobr> */}
-                <h1>{!lisäysTila && <button className="nappi" onClick={() => setLisäysTila(true)}>Add new</button>}</h1>
+                <h2>{!lisäysTila && <button className="nappi" onClick={() => setLisäysTila(true)}>Add new</button>}</h2>
 
-                {!lisäysTila && !muokkausTila &&
+                <h2>{!lisäysTila && !muokkausTila &&
                 <input placeholder='Search by last name' value={search} onChange={handleSearchInputChange} />
-                }  
+                }</h2>
                 
-                {/* <h3>Users by username:</h3> */}
-                <h2>{showUsers}     
+                <h1>Users by username:</h1>
+                <h2>{showUsers}</h2>
 
-                </h2>                                  
-            
-
-                {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload ={reload}
+                {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload={reload}
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />} 
 
                 {muokkausTila && <UserEdit setMuokkausTila={setMuokkausTila} setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} 
-                muokattavaUser={muokattavaUser} 
+                muokattavaUser={muokattavaUser} reloadNow={reloadNow} reload={reload}
                 />} 
 
         {
@@ -67,9 +64,9 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
             return(
               <h5> 
                 <User key={u.userId} user={u} setIsPositive={setIsPositive} setMessage={setMessage} 
-                setShowMessage={setShowMessage} reloadNow={reloadNow} reload ={reload} editUser={editUser} deleteUser={deleteUser} editing={editing}/>
-                <button onClick={() => editing(u)}>Edit</button>       
-                <button onClick={() => deleteUser(u)}>Delete</button>  
+                setShowMessage={setShowMessage} reloadNow={reloadNow} reload={reload} editUser={editUser} deleteUser={deleteUser} editing={editing}/>
+                {/* <button onClick={() => editing(u)}>Edit</button>       
+                <button onClick={() => deleteUser(u)}>Delete</button>   */}
             </h5>
             )
             }

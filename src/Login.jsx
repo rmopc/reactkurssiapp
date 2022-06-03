@@ -33,6 +33,7 @@ const handleSubmit = (event) => {
         setLoggedInUser(response.data.userName)
 
        setMessage(`Logged in as: ${userForAuth.userName}`)
+       console.log('Logged in as: ' + userName)
        setIsPositive(true)
        setShowMessage(true)
       
@@ -42,14 +43,28 @@ const handleSubmit = (event) => {
 
     }
       })
-      .catch(error => {
-        setMessage(error)
-        setIsPositive(false)
-        setShowMessage(true)
+      .catch(error => {       
+        
+        if (error.response.status === 400){
+          setMessage('Wrong username or password')
+          setIsPositive(false)
+          setShowMessage(true)
+  
+          setTimeout(() => {
+            setShowMessage(false)
+           }, 6000)
+        }
 
-        setTimeout(() => {
-          setShowMessage(false)
-         }, 6000)
+        else {
+          setMessage(error + '')
+          setIsPositive(false)
+          setShowMessage(true)
+  
+          setTimeout(() => {
+            setShowMessage(false)
+           }, 6000)
+        }
+
       })
     }
 
@@ -75,7 +90,7 @@ const handleSubmit = (event) => {
             </div>
             
          <input type='submit' value='Login' />
-         <input type='button' value='Empty' onClick={() => clearFields()} />
+         <input type='button' value='Clear' onClick={() => clearFields()} />
        </form>
 
     </div>

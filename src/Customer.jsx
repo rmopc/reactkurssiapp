@@ -110,7 +110,7 @@ const Customer = ({customer, reloadNow, reload}) => {
                             <td>{customer.fax}</td>                               
                         </tr>
                     </tbody>
-                </table> : <CustomerEdit setMuokkausTila={setMuokkausTila} muokattavaCustomer={muokattavaCustomer}
+                </table> : <CustomerEdit setMuokkausTila={setMuokkausTila} muokattavaCustomer={muokattavaCustomer} reloadNow={reloadNow} reload={reload}
                 />}
             </div>
         }

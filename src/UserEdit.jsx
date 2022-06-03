@@ -2,13 +2,13 @@ import './App.css'
 import React, {useState} from 'react'
 import UserService from './services/User'
 import Message from './message'
-import md5 from 'md5'
+// import md5 from 'md5'
 
 const UserEdit = ({setMuokkausTila, muokattavaUser, reloadNow, reload}) => {
 
 const [newUserId, setNewUserId] = useState(muokattavaUser.userId)
-const [newUserName, setNewUserName] = useState(muokattavaUser.userName)
-const [newPassword, setNewPassword] = useState(muokattavaUser.password)
+// const [newUserName, setNewUserName] = useState(muokattavaUser.userName)
+// const [newPassword, setNewPassword] = useState(muokattavaUser.password)
 const [newFirstName, setNewFirstName] = useState(muokattavaUser.firstName)
 const [newLastName, setNewLastName] = useState(muokattavaUser.lastName)
 const [newEmail, setNewEmail] = useState(muokattavaUser.email)
@@ -19,10 +19,11 @@ const [showMessage, setShowMessage] = useState(false)
 const [message, setMessage] = useState('')
 const [isPositive, setIsPositive] = useState(false)
 
+
 const resetFields = () => {
     setNewUserId(muokattavaUser.userId) //tsekkaa viel tää pitääks poistaa tai piilottaa
-    setNewUserName(muokattavaUser.userName)
-    setNewPassword(muokattavaUser.password)
+    // setNewUserName(muokattavaUser.userName)
+    // setNewPassword(muokattavaUser.password)
     setNewFirstName(muokattavaUser.firstName)
     setNewLastName(muokattavaUser.lastName)
     setNewEmail(muokattavaUser.email)
@@ -35,8 +36,8 @@ const resetFields = () => {
 
         var editUser = {
           userId: newUserId,
-          userName: newUserName,
-          password: md5(newPassword),
+        //   userName: newUserName,
+        //   password: md5(newPassword),
           firstName: newFirstName,
           lastName: newLastName,
           email: newEmail,
@@ -45,7 +46,7 @@ const resetFields = () => {
 
     console.log(editUser)
     
-    UserService.update(editUser)
+    UserService.update(muokattavaUser.userId, editUser)
     .then(response => {
         if (response.status === 200) {
             setMessage(response.data)
@@ -53,10 +54,10 @@ const resetFields = () => {
             setShowMessage(true)            
         
             setTimeout(() => {
-                setShowMessage(false)
-                // reloadNow(!reload)          
-                setMuokkausTila(false)
-            }, 5000)   
+                setShowMessage(false)  
+                reloadNow(!reload)                        
+                setMuokkausTila(false)                
+            }, 5000)              
             
       }
   
@@ -80,15 +81,15 @@ const resetFields = () => {
                     <label className='label'>User ID: </label>
                     <input className ='input' type="text" value={newUserId} disabled /> {/*disabled siksi, ettei tätä pidä pystyä muokkaamaan */}
                 </div>
-                <div>
+                {/* <div>
                     <label className='label'>Username: </label>
-                    <input className ='input' type="text" value={newUserName} disabled /> {/*disabled toistaiseksi, ikäänkuin sama kuin ID kanssa */}
+                    <input className ='input' type="text" value={newUserName} disabled /> 
                 </div>
                 <div>
                     <label className='label'>Password: </label>
                     <input className ='input' type="text" value={newPassword}  
                     onChange={({ target }) => setNewPassword(target.value)} required /> 
-                </div>
+                </div> */}
                 <div>
                     <label className='label'>First name: </label>
                     <input className ='input'  type="text" value={newFirstName} placeholder={muokattavaUser.firstName}

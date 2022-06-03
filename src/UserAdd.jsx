@@ -6,7 +6,7 @@ import md5 from 'md5'
 const UserAdd = ({setLisäysTila, reloadNow, reload, setIsPositive, setMessage, setShowMessage}) => {
 
 // Komponentin tilan määritys
-// Id arvo määritellään tietokannassa automaattisesti,emme anna sitä itse
+// Id arvo määritellään tietokannassa automaattisesti, emme anna sitä itse
 
 const [newFirstname, setNewFirstname] = useState('')
 const [newLastname, setNewLastname] = useState('')
@@ -14,7 +14,8 @@ const [newEmail, setNewEmail] = useState('')
 const [newAccesslevelId, setNewAccesslevelId] = useState(2)
 const [newUsername, setNewUsername] = useState('')
 const [newPassword, setNewPassword] = useState('')
-
+const [pwChecker, setpwChecker] = useState('')
+const [pwMatchText, setPwMatchText] = useState('')
 
 // onSubmit tapahtumankäsittelijä funktio
 const handleSubmit = (event) => {
@@ -58,6 +59,17 @@ const handleSubmit = (event) => {
       })
     }
 
+    const passwordCheck = (input) => {
+      setpwChecker(input)
+
+      if(input !== newPassword ){
+        setPwMatchText ("Password does not match")
+      }
+      else{
+        setPwMatchText ("Correct!")
+      }        
+    }
+
 
   return (
     <div id="addNew">
@@ -87,6 +99,13 @@ const handleSubmit = (event) => {
             <div>
                 <input type="password" value={newPassword} placeholder="Password"
                     onChange={({ target }) => setNewPassword(target.value)} />
+            </div>
+            <div>
+                <input type="password" value={pwChecker} placeholder="Re-enter password"
+                    onChange={({ target }) => passwordCheck(target.value)} />                    
+            </div>
+            <div>
+                <label>{pwMatchText}</label>
             </div>
             
          <input type='submit' value='Save' />

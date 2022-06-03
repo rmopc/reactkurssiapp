@@ -31,6 +31,7 @@
   padding-right: 10%;
 }
 .userTable{
+  display: flex;
   margin: auto;
   margin-top: 20px;
   width: 40%;

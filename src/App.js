@@ -38,14 +38,18 @@ const App = () => {
   const logout = () => {
     localStorage.clear()
     setLoggedInUser('')
+    setMessage('Logout succesfull')
+    setShowMessage(true)
   }
 
 
   return (
-    <div className="App"> 
+    <div className="App">     
 
     {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} 
-    setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser}/>}
+    setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser}/>}    
+
+    {!loggedInUser && showMessage && <Message message={message} isPositive={isPositive} />} 
 
 
     {loggedInUser &&
@@ -66,7 +70,7 @@ const App = () => {
 
       <h1>React opiskelua ja testailua</h1>
 
-      {showMessage && <Message message={message} isPositive={isPositive} />}
+      
 
         <Switch>
             <Route path="/Customers"> <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /></Route>

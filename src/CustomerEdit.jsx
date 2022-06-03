@@ -22,6 +22,7 @@ const [showMessage, setShowMessage] = useState(false)
 const [message, setMessage] = useState('')
 const [isPositive, setIsPositive] = useState(false)
 
+
 const resetFields = () => {
     setNewCustomerId(muokattavaCustomer.customerId) //tsekkaa viel tää pitääks poistaa tai piilottaa
     setNewCompanyName(muokattavaCustomer.companyName)
@@ -58,12 +59,11 @@ const resetFields = () => {
         if (response.status === 200) {
             setMessage("Muokattiin asiakasta: " + response.data)
             setIsPositive(true)
-            setShowMessage(true)
-            // window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+            setShowMessage(true)            
         
             setTimeout(() => {
                 setShowMessage(false)
-                // reloadNow(!reload)          
+                reloadNow(!reload)          
                 setMuokkausTila(false)
             }, 5000)   
             

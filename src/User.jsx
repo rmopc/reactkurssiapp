@@ -111,7 +111,7 @@ const User = ({user, reloadNow, reload}) => {
                             <button onClick={() => deleteUser(user)}>Delete</button>
                         </tr>
                     </tbody>
-                </table> : <UserEdit setMuokkausTila={setMuokkausTila} muokattavaUser={muokattavaUser}
+                </table> : <UserEdit setMuokkausTila={setMuokkausTila} muokattavaUser={muokattavaUser} reloadNow={reloadNow} reload={reload}
                 />}
             </div>
         }

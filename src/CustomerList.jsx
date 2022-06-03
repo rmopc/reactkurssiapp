@@ -27,7 +27,7 @@ const CustomerList = ({setIsPositive, setMessage, setShowMessage}) => {
     .then(data => {
       setCustomers(data)
       })
-    }, [reload, lisäysTila, muokkausTila]
+    }, [reload, lisäysTila, muokkausTila] //poista noi muut!
     )
 
     const editCustomer = (customer) => {
@@ -54,7 +54,7 @@ const CustomerList = ({setIsPositive, setMessage, setShowMessage}) => {
                   }
                 </div>
 
-                {lisäysTila && <CustomerAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload ={reload}
+                {lisäysTila && <CustomerAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload={reload}
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />} 
 
                 {muokkausTila && <CustomerEdit setMuokkausTila={setMuokkausTila} setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} 
