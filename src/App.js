@@ -5,6 +5,7 @@ import React, {useState, useEffect} from 'react'
 import Posts from './posts'
 import CustomerList from './CustomerList'
 import UserList from './UserList'
+import ProductList from './ProductList'
 import Message from './message'
 import Login from './Login'
 
@@ -16,9 +17,6 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 
 const App = () => {
-// function App() { 
-
-
 
   //messagen statet
   const [showMessage, setShowMessage] = useState(false)
@@ -60,6 +58,7 @@ const App = () => {
             <Navbar.Brand href="#home">React</Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link href="/Customers">Customers</Nav.Link>
+                <Nav.Link href="/Products">Products</Nav.Link>
                 <Nav.Link href="/Users">Users</Nav.Link>
                 <Nav.Link href="/posts">Posts</Nav.Link>
                 <Nav.Link href="/laskuri">Laskuri</Nav.Link>
@@ -74,6 +73,8 @@ const App = () => {
 
         <Switch>
             <Route path="/Customers"> <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /></Route>
+
+            <Route path="/Products"> <ProductList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /></Route>
 
             <Route path="/Users"> <UserList setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage} /></Route>
 

@@ -68,7 +68,7 @@ const CustomerList = ({setIsPositive, setMessage, setShowMessage}) => {
           if (lowerCaseName.indexOf(search) > -1) {
             return(
             <Customer key={c.customerId} customer={c} setIsPositive={setIsPositive} setMessage={setMessage} 
-            setShowMessage={setShowMessage} reloadNow={reloadNow} reload ={reload} editCustomer={editCustomer}/>
+            setShowMessage={setShowMessage} reloadNow={reloadNow} reload={reload} editCustomer={editCustomer}/>
             )
             }
           }
