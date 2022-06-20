@@ -11,7 +11,7 @@ const UserAdd = ({setLisäysTila, reloadNow, reload, setIsPositive, setMessage, 
 const [newFirstname, setNewFirstname] = useState('')
 const [newLastname, setNewLastname] = useState('')
 const [newEmail, setNewEmail] = useState('')
-const [newAccesslevelId, setNewAccesslevelId] = useState(2)
+const [newAccesslevelId, setNewAccesslevelId] = useState('')
 const [newUsername, setNewUsername] = useState('')
 const [newPassword, setNewPassword] = useState('')
 const [pwChecker, setpwChecker] = useState('')
@@ -89,7 +89,8 @@ const handleSubmit = (event) => {
                     onChange={({ target }) => setNewEmail(target.value)} />
             </div>
             <div>
-                <input type="number" value={newAccesslevelId} placeholder="Access level"
+                <label>Access level: (1 or 2) </label>
+                <input type="number" value={newAccesslevelId} min="1" max="2"
                     onChange={({ target }) => setNewAccesslevelId(target.value)} />
             </div>
             <div>

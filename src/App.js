@@ -18,11 +18,11 @@ import { Container } from 'react-bootstrap'
 
 const App = () => {
 
-  //messagen statet
+ 
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [isPositive, setIsPositive] = useState(true)
-  const [loggedInUser, setLoggedInUser] = useState('')
+  const [loggedInUser, setLoggedInUser] = useState('')  
 
 
   useEffect(() => {
@@ -30,16 +30,22 @@ const App = () => {
     if (storedUser !== null) {
       setLoggedInUser(storedUser)
     }
+    let currentAccessLevel = localStorage.getItem('accesslevelId') 
+    console.log ("Userlevel: " + currentAccessLevel)
+    console.log('Logged in as: ' + storedUser)
   },[])
+
+
 
 
   const logout = () => {
     localStorage.clear()
-    setLoggedInUser('')
+    setLoggedInUser('')    
     setMessage('Logout succesfull')
     setShowMessage(true)
   }
 
+  const accessLevel = localStorage.getItem("accesslevelId")  
 
   return (
     <div className="App">     
@@ -50,16 +56,16 @@ const App = () => {
     {!loggedInUser && showMessage && <Message message={message} isPositive={isPositive} />} 
 
 
-    {loggedInUser &&
+    {loggedInUser && 
 
       <Router>     
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">React</Navbar.Brand>
+            <Navbar.Brand href="#home">Northwind-DB</Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link href="/Customers">Customers</Nav.Link>
                 <Nav.Link href="/Products">Products</Nav.Link>
-                <Nav.Link href="/Users">Users</Nav.Link>
+                {accessLevel==1 ? <Nav.Link href="/Users">Users</Nav.Link> : '' }
                 <Nav.Link href="/posts">Posts</Nav.Link>
                 <Nav.Link href="/laskuri">Laskuri</Nav.Link>
                 <button onClick={() => logout()}>Log out</button>
@@ -67,48 +73,20 @@ const App = () => {
           </Container>
         </Navbar>
 
-      <h1>React opiskelua ja testailua</h1>
-
-      
+      <h1>React palautettava tehtävä - Ronie Oljemark</h1>
+      {showMessage && <Message message={message} isPositive={isPositive} />}
 
         <Switch>
             <Route path="/Customers"> <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /></Route>
-
             <Route path="/Products"> <ProductList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /></Route>
-
             <Route path="/Users"> <UserList setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage} /></Route>
-
             <Route path="/laskuri"> <Laskuri /></Route>
             <Route path="/posts"> <Posts /></Route>
 
         </Switch>
            
       </Router>
-      }
-
-      {/* {showMessage && <Message message={message} isPositive={isPositive} /> }
-
-      <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} /> */}
-
-      {/* <h2>{x + 69 + " moro"}</h2>
-      <div className ="vierekkain">
-        <h4>Laskuri</h4>
-        {showLaskuri && <button onClick={() => setShowLaskuri(false)}>Piilota</button>}
-        {!showLaskuri && <button onClick={() => setShowLaskuri(true)}>Näytä</button>}
-        {showLaskuri && <Laskuri />}
-      </div>
-
-
-      <Viesti sanoma ="Moi komponentista " numero={numero}/> */}
-
-      {/* {/* <Posts /> */}
-      {/* <div className ="vierekkain">
-        <h4 onClick={() => setShowPosts(!showPosts)}>{showPosts ? "Piilota Typicoden postaukset" : "Näytä Typicoden postaukset"}</h4>     
-        {showPosts && <button onClick={() => setShowPosts(false)}>Piilota</button>}
-        {!showPosts && <button onClick={() => setShowPosts(true)}>Näytä</button>}
-        {showPosts && <Posts />}
-      </div> */}
-      
+      }      
     </div>
   )
 }

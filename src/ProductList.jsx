@@ -27,7 +27,7 @@ const ProductList = ({setIsPositive, setMessage, setShowMessage}) => {
     .then(data => {
       setProducts(data)
       })
-    }, [reload] //poista noi muut!
+    }, [reload] 
     )
 
     const editProduct = (product) => {

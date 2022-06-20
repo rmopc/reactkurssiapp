@@ -18,19 +18,17 @@ const clearFields = () => {
     setNewUnitPrice("")
     setUnitsInStock("")
     setNewDiscontinued("")
-    //tässä ei enää tuota discontinued, sillä tulee olemaan radio-nappi?
+    
 }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        var newProduct = {
-          productId: newProductId,
+        var newProduct = {          
           productName: newProductName,
           quantityPerUnit: newQuantityPerUnit,
           unitPrice: newUnitPrice,
-          unitsInStock: newUnitsInStock,
-        //   discontiuned: newDiscontinued
-          discontinued: JSON.parse(newDiscontinued)//lainattu Rissasela, toimiiko miten?
+          unitsInStock: newUnitsInStock,        
+          discontinued: JSON.parse(newDiscontinued)//lainattu Rissaselta, toimiiko miten?
     }
 
     console.log(newProduct)
@@ -60,14 +58,24 @@ const clearFields = () => {
         })
       }
 
+    
+    function discontinuedCheck() {
+        var checkBox = document.getElementById("checker");
+        if (checkBox.checked == true){
+            setNewDiscontinued(true)
+          } else {
+            setNewDiscontinued(false)
+          }
+    }
+    
     return(
 
         <>
             <h2>Add Product</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <input type="text" value={newProductId} placeholder="Product ID" maxLength="3" minLength="1"
-                    onChange={({ target }) => setNewProductId(target.value)} required />
+                    <input type="text" value={newProductId} placeholder="ID (automatically set)" 
+                    onChange={({ target }) => setNewProductId(target.value)} disabled />
                 </div>
                 <div>
                     <input type="text" value={newProductName} placeholder="Product name"
@@ -85,10 +93,10 @@ const clearFields = () => {
                     <input type="text" value={newUnitsInStock} placeholder="Units in stock"
                     onChange={({ target }) => setUnitsInStock(target.value)} />
                 </div>
-                {/* <div>
-                    <input type="text" value={newAddress} placeholder="Address"
-                    onChange={({ target }) => setNewAddress(target.value)} />
-                </div> */}
+                <div>
+                    <label>Discontinued? </label>
+                    <input type="checkbox" id="checker" value={newDiscontinued} onClick={() => discontinuedCheck()} />
+                </div>
                 {/* tuohon ylle tulee se radionappi! */}
             
                 <input type='submit' value='Save'/>

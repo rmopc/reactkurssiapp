@@ -27,7 +27,7 @@ const CustomerList = ({setIsPositive, setMessage, setShowMessage}) => {
     .then(data => {
       setCustomers(data)
       })
-    }, [reload, lisäysTila, muokkausTila] //poista noi muut!
+    }, [reload, lisäysTila, muokkausTila] //poista noi muut?
     )
 
     const editCustomer = (customer) => {

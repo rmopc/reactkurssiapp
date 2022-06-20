@@ -36,18 +36,20 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
       setSearch(event.target.value.toLowerCase())
     }
 
+ 
+  const accessLevel = localStorage.getItem("accesslevelId")  
+  
   return (
-    <div className=''>
+    <div className=''>         
         
-        {/* <h1><nobr style={{ cursor: 'pointer' }}onClick={() => setShowUsers(!showUsers)}>Users</nobr> */}
-                <h2>{!lisäysTila && <button className="nappi" onClick={() => setLisäysTila(true)}>Add new</button>}</h2>
+                <h2>{!lisäysTila && accessLevel==1 && <button className="nappi" onClick={() => setLisäysTila(true)}>Add new</button>}</h2>
 
-                <h2>{!lisäysTila && !muokkausTila &&
+                <h5>{!lisäysTila && !muokkausTila && accessLevel==1 &&
                 <input placeholder='Search by last name' value={search} onChange={handleSearchInputChange} />
-                }</h2>
+                }</h5>
                 
-                <h1>Users by username:</h1>
-                <h2>{showUsers}</h2>
+                <h1>{accessLevel==1 && "Users by username:"}</h1>
+                <h1 className='denied'>{accessLevel!=1 && "ACCESS DENIED"}</h1>             
 
                 {lisäysTila && <UserAdd setLisäysTila={setLisäysTila} reloadNow={reloadNow} reload={reload}
                 setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />} 
@@ -57,7 +59,7 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
                 />} 
 
         {
-        !lisäysTila && !muokkausTila && users && showUsers && users.map(u => 
+        !lisäysTila && !muokkausTila && users && showUsers && accessLevel==1 && users.map(u => 
           {
           const lowerCaseName = u.lastName.toLowerCase()
           if (lowerCaseName.indexOf(search) > -1) {
@@ -65,8 +67,6 @@ const UserList = ({setIsPositive, setMessage, setShowMessage, user, editing, del
               <h5> 
                 <User key={u.userId} user={u} setIsPositive={setIsPositive} setMessage={setMessage} 
                 setShowMessage={setShowMessage} reloadNow={reloadNow} reload={reload} editUser={editUser} deleteUser={deleteUser} editing={editing}/>
-                {/* <button onClick={() => editing(u)}>Edit</button>       
-                <button onClick={() => deleteUser(u)}>Delete</button>   */}
             </h5>
             )
             }

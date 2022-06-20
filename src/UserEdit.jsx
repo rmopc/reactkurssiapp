@@ -107,7 +107,7 @@ const resetFields = () => {
                 </div>
                 <div>
                     <label className='label'>Access-level: </label>
-                    <input className ='input' type="text" value={newAccesslevelId} placeholder={muokattavaUser.accesslevelId}
+                    <input className ='input' type="number" value={newAccesslevelId} min="1" max="2"
                     onChange={({ target }) => setNewAccesslevelId(target.value)} required/>
                 </div>
 

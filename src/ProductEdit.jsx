@@ -35,17 +35,17 @@ const resetFields = () => {
             productName: newProductName,
             quantityPerUnit: newQuantityPerUnit,
             unitPrice: newUnitPrice,
-            unitsInStock: newUnitsInStock,
-            discontiuned: newDiscontinued
-            //discontinued: JSON.parse(newDiscontinued)//lainattu Rissasela, toimiiko miten?
+            unitsInStock: newUnitsInStock,            
+            discontinued: JSON.parse(newDiscontinued)
+            //discontinued: newDiscontinued
     }
 
     console.log(editProduct)
     
-    ProductService.update(editProduct)
+    ProductService.update(muokattavaProduct.productId, editProduct)
     .then(response => {
         if (response.status === 200) {
-            setMessage("Muokattiin tuotetta: " + response.data)
+            setMessage(response.data)
             setIsPositive(true)
             setShowMessage(true)            
         
@@ -67,6 +67,15 @@ const resetFields = () => {
         })
       }
 
+      const discontinuedCheck = () => {
+        var checkBox = document.getElementById("checker");
+        if (checkBox.checked == true){
+            setNewDiscontinued(true)
+          } else {
+            setNewDiscontinued(false)
+          }
+    }
+
     return(
 
         <>
@@ -74,7 +83,7 @@ const resetFields = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className='label'>Product ID: </label>
-                    <input className ='input' type="text" value={newProductId} disabled /> {/*disabled siksi, ettei tätä pidä pystyä muokkaamaan */}
+                    <input className ='input' type="text" value={newProductId} disabled /> 
                 </div>
                 <div>
                     <label className='label'>Product name: </label>
@@ -98,7 +107,9 @@ const resetFields = () => {
                 </div>
                 <div>
                     <label className='label'>Discontinued?: </label>
-                    <input className ='input' type="radio" value={newDiscontinued} onClick={() => setNewDiscontinued(true)} />
+                    {/* <input className ='input' type="radio" value={newDiscontinued} onClick={() => setNewDiscontinued(true)} /> */}
+                    {/* <input type="checkbox" id="checker" value={muokattavaProduct.discontinued} onClick={() => discontinuedCheck()} /> */}
+                    <input type="checkbox" id="checker" value={newDiscontinued} onClick={() => discontinuedCheck()} />
                 </div>
                 {showMessage && <Message message={message} isPositive={isPositive} /> }
                 <div className='nappiGroup'>

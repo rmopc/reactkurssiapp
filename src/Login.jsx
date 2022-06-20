@@ -34,17 +34,22 @@ const handleSubmit = (event) => {
 
        setMessage(`Logged in as: ${userForAuth.userName}`)
        console.log('Logged in as: ' + userName)
+       console.log(`User access level: ` + response.data.accesslevelId)
        setIsPositive(true)
        setShowMessage(true)
       
        setTimeout(() => {
         setShowMessage(false)
-       }, 5000)
+       }, 6000)
 
     }
       })
       .catch(error => {       
         
+        //menee catchiin vaikka ei tulisi virhettä??
+        console.log('Data-virhe: ' + error.response.data)
+        console.log('Status-virhekoodi: ' + error.response.status) 
+
         if (error.response.status === 400){
           setMessage('Wrong username or password')
           setIsPositive(false)

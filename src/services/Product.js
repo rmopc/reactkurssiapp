@@ -1,7 +1,8 @@
 import axios from "axios"
 
 //const baseUrl = "https://localhost:44375/api/products" //läppäri
-const baseUrl = "https://localhost:7229/api/products" //pöytäkone
+//const baseUrl = "https://localhost:7229/api/products" //pöytäkone
+const baseUrl = "https://northwindrestapi.azurewebsites.net/api/products" //azure
 
 let token = null
 

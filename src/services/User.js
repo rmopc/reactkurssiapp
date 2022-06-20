@@ -1,7 +1,8 @@
 import axios from "axios"
 
 //const baseUrl = "https://localhost:44375/api/users" //läppäri
-const baseUrl = "https://localhost:7229/api/users" //pöytäkone
+//const baseUrl = "https://localhost:7229/api/users" //pöytäkone
+const baseUrl = "https://northwindrestapi.azurewebsites.net/api/users" //azure
 
 const getAll = () => {
     const request = axios.get(baseUrl)

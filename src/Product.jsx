@@ -6,7 +6,7 @@ import Message from './message'
 
 
 
-const Product = ({product, reloadNow, reload}) => {
+const Product = ({product, reloadNow, reload, discontinuedCheck}) => {
 
 
   const [showDetails, setShowDetails] = useState(false)
@@ -106,10 +106,10 @@ const Product = ({product, reloadNow, reload}) => {
                             <td>{product.quantityPerUnit}</td>                             
                             <td>{product.unitPrice}</td>                             
                             <td>{product.unitsInStock}</td>                            
-                            <td>{product.discontinued}</td>                               
+                            <td>{product.discontinued.toString()}</td>                               
                         </tr>
                     </tbody>
-                </table> : <ProductEdit setMuokkausTila={setMuokkausTila} muokattavaProduct={muokattavaProduct} reloadNow={reloadNow} reload={reload}
+                </table> : <ProductEdit setMuokkausTila={setMuokkausTila} muokattavaProduct={muokattavaProduct} reloadNow={reloadNow} reload={reload} discontinuedCheck={discontinuedCheck}
                 />}
             </div>
         }
